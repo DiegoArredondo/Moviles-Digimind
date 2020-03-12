@@ -1,0 +1,1 @@
+data class Task(var name: String, var When: String, var time:String)
