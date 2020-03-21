@@ -20,7 +20,12 @@ class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
 
-    var tasks = ArrayList<Task>();
+
+
+    companion object{
+        var tasks = ArrayList<Task>()
+        var first = true
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,25 +38,23 @@ class HomeFragment : Fragment() {
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
-        cargarTasks()
         root.tasksGridView.adapter = AdaptadorTasks(root.context,tasks)
 
         return root
     }
 
     fun cargarTasks(){
-        tasks.add(Task("Practice", "Everyday", "17:00"))
-        tasks.add(Task("Practice", "Everyday", "17:00"))
-        tasks.add(Task("Practice", "Everyday", "17:00"))
-        tasks.add(Task("Practice", "Everyday", "17:00"))
-        tasks.add(Task("Practice", "Everyday", "17:00"))
-        tasks.add(Task("Practice", "Everyday", "17:00"))
-        tasks.add(Task("Practice", "Everyday", "17:00"))
-        tasks.add(Task("Practice", "Everyday", "17:00"))
-        tasks.add(Task("Practice", "Everyday", "17:00"))
-        tasks.add(Task("Practice", "Everyday", "17:00"))
-        tasks.add(Task("Practice", "Everyday", "17:00"))
-        tasks.add(Task("Practice", "Everyday", "17:00"))
+        var days = ArrayList<String>()
+        days.add("Monday")
+        days.add("Wednesday")
+        days.add("Friday")
+        tasks.add(Task("Practice", "17:00", days))
+        tasks.add(Task("Practice", "17:00", days))
+        tasks.add(Task("Practice", "17:00", days))
+        tasks.add(Task("Practice", "17:00", days))
+        tasks.add(Task("Practice", "17:00", days))
+        tasks.add(Task("Practice", "17:00", days))
+
     }
 }
 
@@ -70,9 +73,9 @@ private class AdaptadorTasks: BaseAdapter {
         var inflador = LayoutInflater.from(contexto)
         var vista = inflador.inflate(R.layout.task_view, null)
 
-        vista.taskName.setText(task.name)
-        vista.taskWhen.setText(task.When)
-        vista.taskTime.setText(task.time)
+        vista.taskName.text = task.title
+        vista.taskTime.text = task.time
+        vista.taskWhen.text = if(task.days.size == 7) "Everyday" else task.days.toString().replace("[", "").replace("]","")
         return vista
     }
 

@@ -1,1 +1,1 @@
-data class Task(var name: String, var When: String, var time:String)
+data class Task(var title: String, var time: String, var days:ArrayList<String>)
